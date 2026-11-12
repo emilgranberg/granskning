@@ -16,7 +16,7 @@
 <header>
  <h1>Förlorade du offerten? Få en gratis granskning</h1>
  <p class="lead">10 gratisplatser. Skicka en offert eller ett anbud som inte ledde till jobb. Du får tillbaka troliga orsaker, vad som bör ändras och ett omarbetat utkast.</p>
- <p><a class="cta" href="mailto:emil.granberg.grok@gmail.com?subject=Gratis%20granskning%20av%20f%C3%B6rlorad%20offert">Mejla din offert</a></p>
+ <p><a class="cta" href="mailto:emil.granberg.grok@gmail.com?subject=Gratis%20granskning%20av%20f%C3%B6rlorad%20offert">Mejla din offert</a> &nbsp; <a href="#sjalvtest">eller gör snabbtestet på 2 minuter</a></p>
 </header>
 
 <section><h2>Vem det är för</h2>
@@ -58,6 +58,39 @@
 <dt>Funkar det för offentliga anbud?</dt><dd>Ja, även anbud enligt LOU. Granskningen pekar också på vad du kan begära ut från den upphandlande myndigheten. Det är inte juridisk rådgivning.</dd>
 <dt>Hur snabbt får jag svar?</dt><dd>Det lovar vi inget om ännu. Du får besked när vi tagit emot underlaget.</dd>
 <dt>Kan ni lova att jag vinner nästa gång?</dt><dd>Nej. Ingen garanti.</dd></dl></section>
+
+<section class="box" id="sjalvtest"><h2>Snabbtest: hur stark var din senaste offert?</h2>
+<p>Svara ja eller nej på tio frågor om din senaste offert. Du får en poäng och de tre största luckorna direkt här. Inget sparas eller skickas någonstans.</p>
+<form id="qt">
+<ol id="ql"></ol>
+<p><button type="submit" class="cta" style="border:0;cursor:pointer">Visa resultat</button></p>
+</form>
+<div id="qr" hidden></div>
+<p style="font-size:.9rem;color:#555">Poängen är en enkel tumregel, inte en bedömning av just ditt jobb och ingen garanti för fler uppdrag.</p>
+</section>
+<script>
+const Q=[
+["Följde du upp offerten inom 48 timmar?",15,"Följ upp inom 48 timmar. Många kunder väljer den som hör av sig först, inte den som är billigast."],
+["Stod det tydligt vad som ingår och vad som inte ingår?",12,"Skriv en kort lista med vad som ingår och vad som inte ingår, så kunden kan jämföra rätt."],
+["Var priset fast eller med ett tydligt tak?",10,"Ge fast pris eller ett tak. Löpande räkning utan tak skrämmer privatkunder."],
+["Visade du ROT-avdraget och priset efter avdrag?",10,"Visa pris före och efter ROT-avdrag. Det är siffran kunden faktiskt jämför."],
+["Fanns ett startdatum eller en ungefärlig tidsplan?",10,"Skriv när du kan börja och ungefär hur lång tid jobbet tar."],
+["Skickade du med bilder, referenser eller tidigare jobb?",8,"Lägg till 2–3 bilder eller referenser från liknande jobb. Det bygger förtroende snabbare än text."],
+["Hade offerten en giltighetstid?",8,"Sätt en giltighetstid, till exempel 30 dagar. Det ger ett naturligt skäl att följa upp."],
+["Var det enkelt att tacka ja (ett svar, en signatur, en knapp)?",10,"Gör det enkelt att tacka ja: skriv exakt vad kunden ska svara eller signera."],
+["Pratade du med kunden (besök eller samtal) innan offerten skickades?",10,"Prata med kunden innan du skickar. En offert som bygger på ett samtal vinner oftare än en som kommer kallt."],
+["Var offerten skriven med kundens egna ord om problemet?",7,"Börja offerten med kundens problem i deras egna ord, inte med dina material."]];
+const ql=document.getElementById('ql');
+Q.forEach((q,i)=>{ql.insertAdjacentHTML('beforeend',`<li style="margin:.6em 0">${q[0]}<br><label><input type="radio" name="q${i}" value="1" required> Ja</label> &nbsp; <label><input type="radio" name="q${i}" value="0"> Nej</label></li>`)});
+document.getElementById('qt').addEventListener('submit',e=>{e.preventDefault();let sc=0,miss=[];
+Q.forEach((q,i)=>{const v=document.querySelector(`input[name=q${i}]:checked`).value;if(v==='1')sc+=q[1];else miss.push(q)});
+miss.sort((a,b)=>b[1]-a[1]);const r=document.getElementById('qr');
+let h=`<h3>Din poäng: ${sc} av 100</h3>`;
+if(miss.length){h+='<p><strong>De största luckorna:</strong></p><ol>'+miss.slice(0,3).map(m=>`<li>${m[2]}</li>`).join('')+'</ol>';}
+else{h+='<p>Inga uppenbara luckor enligt testet. Vill du ändå veta varför den inte blev jobb, mejla den för en gratis granskning.</p>';}
+h+='<p>Guiden <strong>Varför det inte blev jobb</strong> går igenom alla tio punkterna med mall och exempel. Från 295 kr, faktura från Avant webb.</p><p><a class="cta" href="https://emilgranberg.github.io/varfor-inte-jobb/">Se guiden</a> &nbsp; <a href="mailto:emil.granberg.grok@gmail.com?subject=Gratis%20granskning%20av%20f%C3%B6rlorad%20offert">eller mejla offerten för gratis granskning</a></p>';
+r.innerHTML=h;r.hidden=false;r.scrollIntoView({behavior:'smooth'});});
+</script>
 
 <section class="box"><h2>Vill du inte vänta? Gör granskningen själv</h2>
 <p>Guiden <strong>Varför det inte blev jobb</strong> innehåller samma genomgång som vi använder: mall för att gå igenom en förlorad offert, checklista för vilka jobb som är värda att räkna på, och exempel. Från 295 kr, faktura från Avant webb.</p>
